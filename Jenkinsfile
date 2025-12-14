@@ -20,6 +20,12 @@ pipeline {
                 sh 'kubectl apply -f manifests/deployment.yaml'
             }
         }
+
+        stage('Deploy Service') {
+            steps {
+                sh 'kubectl apply -f manifests/service.yaml'
+            }
+        }
     }
 }
 
