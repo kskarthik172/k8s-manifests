@@ -1,19 +1,23 @@
 pipeline {
     agent any
 
-    environment {
-        KUBECONFIG = "${WORKSPACE}/kubeconfig"
-    }
-
     stages {
 
         stage('Checkout') {
-            steps { checkout scm }
+            steps {
+                checkout scm
+            }
         }
 
-        stage('Deploy') {
+        stage('Deploy Namespace') {
             steps {
-                sh "kubectl apply -f manifests/"
+                sh 'kubectl apply -f manifests/namespace.yaml'
+            }
+        }
+
+        stage('Deploy Application') {
+            steps {
+                sh 'kubectl apply -f manifests/deployment.yaml'
             }
         }
     }
